@@ -1,104 +1,161 @@
-# MLB_attendance_performance_payroll
+
+# MLB Attendance vs. Payroll Analysis
+
 ## Project Overview
-This project investigates the relationship between MLB team payroll, on-field performance, and fan attendance from 2015 to 2024. The goal is to determine whether a team's financial investment in players or its success on the field has a stronger relationship with attendance.
-Research Question
-What has a greater impact on MLB attendance: team payroll or winning percentage?
-Tools & Technologies
-SQL (SQLite): Data cleaning, filtering, joins, and calculations
-DB Browser for SQLite: Database management and querying
-R: Statistical analysis, linear regression, and data visualization
-Excel/CSV: Data organization and importing/exporting datasets
-Data Sources
-The analysis combines two primary datasets:
-MLB Payroll Data (Kaggle): Annual team payroll information.
-Lahman Baseball Database: Historical team statistics, including wins, losses, games played, and attendance.
-The dataset covers the 2015–2024 seasons, excluding 2020 due to COVID-19 attendance restrictions.
-The final dataset contains approximately 270 team-season observations.
-Methodology
-1. Data Cleaning and Preparation (SQL)
-I used SQL to clean and combine the payroll and team performance datasets.
+
+This project analyzes the relationship between MLB team payroll, on-field performance, and fan attendance from 2015 to 2024.
+
+The primary research question is:
+
+**What has a stronger relationship with MLB attendance: team payroll or winning percentage?**
+
+Using SQL for data cleaning and preparation and R for statistical analysis, I combined historical MLB datasets to examine how financial investment and team performance relate to fan attendance.
+
+## Tools & Technologies
+
+- **SQL (SQLite):** Data cleaning, joins, filtering, and calculations
+- **DB Browser for SQLite:** Database management
+- **R:** Statistical analysis, regression modeling, and data visualization
+- **Excel/CSV:** Data organization and file management
+
+## Data Sources
+
+The project combines two primary datasets:
+
+1. **MLB Payroll Data (Kaggle):** Annual payroll information for MLB teams.
+2. **Lahman Baseball Database:** Historical team statistics, including wins, losses, home games, and attendance.
+
+The analysis covers all 30 MLB teams from 2015 to 2024, excluding the 2020 season due to COVID-19 attendance restrictions.
+
+**Final dataset:** Approximately 270 team-season observations.
+
+## Methodology
+
+### 1. Data Cleaning and Preparation (SQL)
+
+I used SQL to clean, organize, and combine the payroll and team performance datasets.
+
 Key steps included:
-Standardizing team abbreviations across datasets to ensure accurate joins.
-Joining payroll and performance data by team and season.
-Removing incomplete or irrelevant observations.
-Calculating winning percentage for each team.
-Calculating average attendance per home game.
-Excluding the 2020 season due to pandemic-related attendance restrictions.
-Key variables:
-Variable
-Description
-year
-MLB season
-team_code
-Standardized team abbreviation
-total_payroll
-Annual team payroll in USD
-wins
-Total regular-season wins
-losses
-Total regular-season losses
-win_pct
-Wins divided by wins plus losses
-avg_attendance
-Average fans per home game
 
-2. Exploratory Data Analysis (R)
-After cleaning the datasets in SQL, I imported the combined data into R to explore relationships between the variables.
+- Standardizing team abbreviations across datasets.
+- Joining payroll and performance data using team codes and seasons.
+- Filtering incomplete or irrelevant observations.
+- Calculating winning percentage for each team.
+- Calculating average attendance per home game.
+- Excluding the 2020 season due to pandemic-related attendance restrictions.
+
+**Key Variables:**
+
+| Variable | Description |
+|----------|-------------|
+| year | MLB season |
+| team_code | Standardized team abbreviation |
+| total_payroll | Annual team payroll in USD |
+| wins | Total regular-season wins |
+| losses | Total regular-season losses |
+| win_pct | Wins / (Wins + Losses) |
+| avg_attendance | Total attendance / Home games |
+
+### 2. Exploratory Data Analysis (R)
+
+After preparing the dataset in SQL, I imported the data into R to investigate relationships between payroll, winning percentage, and attendance.
+
 I created scatterplots to visualize:
-The relationship between team payroll and average attendance.
-The relationship between winning percentage and average attendance.
-These visualizations helped identify general trends and potential relationships before conducting regression analysis.
-3. Multiple Linear Regression (R)
-I used a multiple linear regression model to estimate the relationship between attendance, payroll, and team performance.
-Regression model:
-avg_attendance = β₀ + β₁(total_payroll) + β₂(win_pct) + ε
-This model examines the association between each independent variable and attendance while holding the other variable constant.
-Key Findings
-The regression analysis found that both payroll and winning percentage were positively associated with average attendance.
-Variable
-Coefficient
-P-value
-Intercept
-893.5
-—
-Total Payroll
-0.00009633
-< 0.001
-Winning Percentage
-26,390
-< 0.001
 
-Key takeaways:
-Payroll: A $1 million increase in annual team payroll was associated with approximately 96 additional fans per home game, holding winning percentage constant.
-Winning Percentage: A 10-percentage-point increase in winning percentage was associated with approximately 2,639 additional fans per home game, holding payroll constant.
-Statistical Significance: Both independent variables were statistically significant predictors of attendance.
-These findings suggest that both financial investment and on-field success are important factors associated with fan attendance.
-However, because payroll and winning percentage are measured on different scales, their coefficients cannot be directly compared to determine which variable has a stronger relationship with attendance.
-Limitations
-Several factors may influence MLB attendance beyond payroll and team performance:
-Stadium capacity and ticket availability
-Local market size and population
-Ticket prices
-Team popularity and historical success
-Stadium renovations or new stadium openings
-Economic conditions
-Additionally, the regression identifies statistical relationships rather than proving causation.
-Future Improvements
+- Team payroll vs. average attendance
+- Winning percentage vs. average attendance
+
+These visualizations helped identify trends and relationships before conducting regression analysis.
+
+### 3. Multiple Linear Regression (R)
+
+I used multiple linear regression to estimate the relationship between team payroll, winning percentage, and average attendance.
+
+**Regression Model:**
+
+```text
+avg_attendance = β0 + β1(total_payroll) + β2(win_pct) + ε
+```
+
+This model estimates the relationship between each independent variable and attendance while holding the other variable constant.
+
+## Results
+
+The regression analysis found that both payroll and winning percentage had statistically significant positive relationships with average attendance.
+
+| Variable | Coefficient | P-value |
+|----------|-------------|---------|
+| Intercept | 893.5 | — |
+| Total Payroll | 0.00009633 | < 0.001 |
+| Winning Percentage | 26,390 | < 0.001 |
+
+### Key Findings
+
+**1. Team Payroll**
+- A $1 million increase in annual payroll was associated with approximately 96 additional fans per home game, holding winning percentage constant.
+- Payroll was a statistically significant predictor of attendance.
+
+**2. Winning Percentage**
+- A 10-percentage-point increase in winning percentage was associated with approximately 2,639 additional fans per home game, holding payroll constant.
+- Winning percentage was also statistically significant.
+
+**3. Overall Findings**
+- Both payroll and winning percentage were positively associated with attendance.
+- Both variables were statistically significant in the regression model.
+- Because the variables use different measurement scales, their coefficients cannot be directly compared to determine which has a stronger relationship with attendance.
+
+## Data Visualizations
+
+### Payroll vs. Average Attendance
+
+This scatterplot examines the relationship between annual team payroll and average home-game attendance.
+
+![Payroll vs. Attendance](visualizations/payroll_vs_attendance.png)
+
+### Winning Percentage vs. Average Attendance
+
+This scatterplot examines the relationship between team performance and average home-game attendance.
+
+![Winning Percentage vs. Attendance](visualizations/win_pct_vs_attendance.png)
+
+## Limitations
+
+Several factors beyond payroll and winning percentage may influence attendance:
+
+- Stadium capacity
+- Local market size and population
+- Ticket prices
+- Team popularity and historical success
+- Stadium renovations and new stadium openings
+- Regional economic conditions
+
+Additionally, the regression identifies statistical associations rather than establishing causal relationships.
+
+## Future Improvements
+
 Potential extensions of this project include:
-Adding stadium capacity and market size as control variables.
-Standardizing regression coefficients to compare the relative importance of payroll and winning percentage.
-Incorporating additional seasons to examine long-term trends.
-Developing predictive models to forecast future attendance.
-Using team and year fixed effects to account for differences across franchises and seasons.
-Project Skills Demonstrated
-This project demonstrates experience with:
-Relational databases and SQL joins
-Data cleaning and transformation
-Combining multiple data sources
-Exploratory data analysis
-Statistical modeling and hypothesis testing
-Data visualization in R
-Interpreting regression results and communicating findings
-Conclusion
-This project demonstrates how SQL and R can be used together to investigate a real-world sports business question. By combining MLB financial and performance data, I found that both payroll and winning percentage have statistically significant positive relationships with attendance.
-The analysis provides a foundation for further research into the economic and competitive factors that influence fan engagement in professional baseball.
+
+- Adding stadium capacity and market size as control variables.
+- Standardizing regression coefficients to compare the relative importance of payroll and winning percentage.
+- Incorporating additional seasons.
+- Developing predictive models to forecast attendance.
+- Using team and year fixed effects to control for differences across franchises and seasons.
+
+## Skills Demonstrated
+
+- SQL querying and relational database management
+- Data cleaning and transformation
+- Combining multiple datasets
+- Exploratory data analysis
+- Multiple linear regression
+- Statistical hypothesis testing
+- Data visualization using R
+- Interpretation and communication of analytical findings
+
+## Conclusion
+
+This project demonstrates how SQL and R can be combined to analyze a real-world sports business question.
+
+The results indicate that both team payroll and winning percentage have statistically significant positive relationships with MLB attendance.
+
+The analysis provides a foundation for further investigation into the financial, competitive, and economic factors that influence fan engagement in professional baseball.
