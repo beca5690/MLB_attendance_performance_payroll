@@ -110,13 +110,13 @@ The regression analysis found that both payroll and winning percentage had stati
 
 This scatterplot examines the relationship between annual team payroll and average home-game attendance.
 
-![Payroll vs. Attendance](visualizations/payroll_vs_attendance.png)
+![Payroll vs. Attendance](images/payroll_vs_attendance.png)
 
 ### Winning Percentage vs. Average Attendance
 
 This scatterplot examines the relationship between team performance and average home-game attendance.
 
-![Winning Percentage vs. Attendance](visualizations/win_pct_vs_attendance.png)
+![Winning Percentage vs. Attendance](images/winning_vs_attendance.png)
 
 ## Limitations
 
